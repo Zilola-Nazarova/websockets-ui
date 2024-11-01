@@ -18,7 +18,7 @@ export const httpServer = http.createServer(function (req, res) {
 });
 
 const wsServer = new WebSocketServer({
-  noServer: true
+  port: 3000
 });
 
 wsServer.on('connection', function(ws) {
@@ -27,7 +27,7 @@ wsServer.on('connection', function(ws) {
   ws.on('message', function(msg) {
     console.log(`Received message: ${msg}`);
     wsServer.clients.forEach((client) => {
-      if (client.readyState === WebSocket.OPEN) {
+      if (client !== ws && client.readyState === WebSocket.OPEN) {
         client.send(`Server received your message: ${msg}`);
       }
     });
