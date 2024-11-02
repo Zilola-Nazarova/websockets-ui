@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as http from 'http';
-import { WebSocketServer, WebSocket } from 'ws';
+import '../ws_server/index.js';
 
 export const httpServer = http.createServer(function (req, res) {
   const __dirname = path.resolve(path.dirname(''));
@@ -12,28 +12,8 @@ export const httpServer = http.createServer(function (req, res) {
       res.end(JSON.stringify(err));
       return;
     }
+
     res.writeHead(200);
     res.end(data);
-  });
-});
-
-const wsServer = new WebSocketServer({
-  port: 3000
-});
-
-wsServer.on('connection', function(ws) {
-  console.log('WS Connected!');
-
-  ws.on('message', function(msg) {
-    console.log(`Received message: ${msg}`);
-    wsServer.clients.forEach((client) => {
-      if (client !== ws && client.readyState === WebSocket.OPEN) {
-        client.send(`Server received your message: ${msg}`);
-      }
-    });
-  });
-
-  ws.on('close', () => {
-    console.log('Client disconnected');
   });
 });
