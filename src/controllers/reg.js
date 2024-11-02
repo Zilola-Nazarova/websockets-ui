@@ -1,12 +1,12 @@
 import gameData from '../database/gameData.js';
 
-const reg = (msgJSON) => {
+const reg = (type, dataJSON, id) => {
   console.log('Registering');
-  console.log(gameData);
+  const data = gameData.reg(dataJSON.name, dataJSON.password);
   return {
-    type: msgJSON.type,
-    data: gameData.reg(msgJSON.data),
-    id: msgJSON.id
+    type: type,
+    data: JSON.stringify(data),
+    id: id
   }
 }
 

@@ -23,11 +23,12 @@ wsServer.on('connection', function(ws) {
 
   ws.on('message', function(msg) {
     console.log(`Received message: ${msg}`);
-    const msgJSON = JSON.parse(msg).type;
+    const msgJSON = JSON.parse(msg);
+    const dataJSON = JSON.parse(msgJSON.data);
     let responseData;
     switch (msgJSON.type) {
       case 'reg':
-        responseData = reg(msgJSON);
+        responseData = reg(msgJSON.type, dataJSON, msgJSON.id);
         break;
       case 'create_game':
         responseData = createGame(msgJSON);
@@ -66,11 +67,15 @@ wsServer.on('connection', function(ws) {
         console.log('Unknown message type');
     }
 
-    console.log(`Respnse message: ${responseData}`);
+    console.log(`Response message: ${JSON.stringify(responseData)}`);
 
     wsServer.clients.forEach((client) => {
       if (client !== ws && client.readyState === WebSocket.OPEN) {
         client.send(`Server received your message: ${msg}`);
+      }
+      if (client == ws) {
+        console.log('Sending response');
+        client.send(JSON.stringify(responseData));
       }
     });
   });
