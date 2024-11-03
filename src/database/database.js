@@ -87,7 +87,7 @@ class Database {
           }) || []
         };
       }
-    });
+    }) || [];
   }
 
   createRoom () {
@@ -172,7 +172,7 @@ class Database {
       return {
         position: { x, y },
         status: isKilled ? "killed" : "shot",
-        win
+        win: win ? attacker.id : false
       };
     }
 
@@ -211,6 +211,7 @@ class Database {
   }
 
   finish (winnerId) {
+    this.#users.find((user) => user.id === winnerId).wins += 1;
     return { winPlayer: winnerId };
   }
 }

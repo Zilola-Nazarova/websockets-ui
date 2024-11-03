@@ -103,7 +103,7 @@ wsServer.on('connection', function(ws) {
           response.players.forEach((player) => {
             lookup[player.id].send(JSON.stringify({
               type: "finish",
-              data: finish(),
+              data: JSON.stringify(finish(response.win)),
               id
             }));
           });
@@ -146,7 +146,7 @@ wsServer.on('connection', function(ws) {
           response.players.forEach((player) => {
             lookup[player.id].send(JSON.stringify({
               type: "finish",
-              data: finish(),
+              data: JSON.stringify(finish(response.win)),
               id
             }));
           });
