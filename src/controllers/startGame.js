@@ -1,13 +1,14 @@
 import gameData from '../database/gameData.js';
 
-const startGame = (msgJSON) => {
+const startGame = ({ gameId, indexPlayer }) => {
   console.log('Starting the game');
-  console.log(gameData);
+  const data = gameData.startGame(gameId, indexPlayer);
+  const players = gameData.getPlayers(gameId);
+
   return {
-    type: msgJSON.type,
-    data: gameData.startGame(msgJSON.data),
-    id: msgJSON.id
-  }
+    feedback: data,
+    players
+  };
 }
 
 export default startGame;

@@ -1,13 +1,9 @@
 import gameData from '../database/gameData.js';
 
-const addShips = (msgJSON) => {
+const addShips = ({ gameId, ships, indexPlayer }) => {
   console.log('Adding Ships');
-  console.log(gameData);
-  return {
-    type: msgJSON.type,
-    data: gameData.addShips(msgJSON.data),
-    id: msgJSON.id
-  }
+  const readyState = gameData.addShips(gameId, ships, indexPlayer);
+  return readyState;
 }
 
 export default addShips;
