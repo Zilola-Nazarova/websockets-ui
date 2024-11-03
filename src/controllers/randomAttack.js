@@ -1,13 +1,14 @@
 import gameData from '../database/gameData.js';
 
-const randomAttack = (msgJSON) => {
-  console.log('Random Attack');
-  console.log(gameData);
+const randomAttack = ({ gameId, indexPlayer }, id) => {
+  const data = gameData.randomAttack(gameId, indexPlayer);
+  const players = gameData.getPlayers(gameId);
+  
   return {
-    type: msgJSON.type,
-    data: gameData.randomAttack(msgJSON.data),
-    id: msgJSON.id
-  }
+    feedback: { data: data.position, status: data.status },
+    players,
+    win: data.win
+  };
 }
 
 export default randomAttack;
