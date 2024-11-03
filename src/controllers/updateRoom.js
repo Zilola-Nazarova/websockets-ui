@@ -1,13 +1,13 @@
 import gameData from '../database/gameData.js';
 
-const updateRoom = (msgJSON) => {
+const updateRoom = (id) => {
   console.log('Updating the Room');
-  console.log(gameData);
+  const data = gameData.updateRoom();
   return {
-    type: msgJSON.type,
-    data: gameData.updateRoom(msgJSON.data),
-    id: msgJSON.id
-  }
+    type: "update_room",
+    data: JSON.stringify(data),
+    id
+  };
 }
 
 export default updateRoom;

@@ -1,13 +1,13 @@
 import gameData from '../database/gameData.js';
 
-const reg = (type, dataJSON, id) => {
+const reg = (id, { name, password }, userId) => {
   console.log('Registering');
-  const data = gameData.reg(dataJSON.name, dataJSON.password);
+  const data = gameData.reg(name, password, userId);
   return {
-    type: type,
+    type: 'reg',
     data: JSON.stringify(data),
-    id: id
-  }
+    id
+  };
 }
 
 export default reg;

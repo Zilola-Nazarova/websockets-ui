@@ -1,13 +1,13 @@
 import gameData from '../database/gameData.js';
 
-const updateWinners = (msgJSON) => {
+const updateWinners = (id) => {
   console.log('Updating Winners');
-  console.log(gameData);
+  const data = gameData.updateWinners();
   return {
-    type: msgJSON.type,
-    data: gameData.updateWinners(msgJSON.data),
-    id: msgJSON.id
-  }
+    type: "update_winners",
+    data: JSON.stringify(data),
+    id
+  };
 }
 
 export default updateWinners;
