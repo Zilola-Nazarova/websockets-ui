@@ -168,7 +168,7 @@ class Database {
       };
       hitShip.hits.push(hitPosition);
       const isKilled = hitShip.hits.length === hitShip.length;
-      const win = ships.every((ship) => ship.hits && ship.hits.length === ship.length);
+      const win = enemyShips.every((ship) => ship.hits && ship.hits.length === ship.length);
       return {
         position: { x, y },
         status: isKilled ? "killed" : "shot",

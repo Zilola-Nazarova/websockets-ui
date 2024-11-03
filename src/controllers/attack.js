@@ -5,7 +5,7 @@ const attack = ({ gameId, x, y, indexPlayer }) => {
   const players = gameData.getPlayers(gameId);
   
   return {
-    feedback: { data: data.position, status: data.status },
+    feedback: { position: data.position, status: data.status },
     players,
     win: data.win
   };
