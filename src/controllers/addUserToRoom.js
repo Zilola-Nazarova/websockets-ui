@@ -1,13 +1,8 @@
 import gameData from '../database/gameData.js';
 
-const addUserToRoom = (msgJSON) => {
+const addUserToRoom = (indexRoom, userId) => {
   console.log('Adding User To Room');
-  console.log(gameData);
-  return {
-    type: msgJSON.type,
-    data: gameData.addUserToRoom(msgJSON.data),
-    id: msgJSON.id
-  }
+  return gameData.addUserToRoom(indexRoom, userId);
 }
 
 export default addUserToRoom;

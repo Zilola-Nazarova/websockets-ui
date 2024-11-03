@@ -1,13 +1,8 @@
 import gameData from '../database/gameData.js';
 
-const createRoom = (msgJSON) => {
+const createRoom = () => {
   console.log('Creating the Room');
-  console.log(gameData);
-  return {
-    type: msgJSON.type,
-    data: gameData.createRoom(msgJSON.data),
-    id: msgJSON.id
-  }
+  return gameData.createRoom();
 }
 
 export default createRoom;
