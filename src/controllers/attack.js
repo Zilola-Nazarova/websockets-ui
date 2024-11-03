@@ -1,13 +1,14 @@
 import gameData from '../database/gameData.js';
 
-const attack = (msgJSON) => {
-  console.log('Attacking');
-  console.log(gameData);
+const attack = ({ gameId, x, y, indexPlayer }) => {
+  const data = gameData.attack(gameId, x, y, indexPlayer);
+  const players = gameData.getPlayers(gameId);
+  
   return {
-    type: msgJSON.type,
-    data: gameData.attack(msgJSON.data),
-    id: msgJSON.id
-  }
+    feedback: { data: data.position, status: data.status },
+    players,
+    win: data.win
+  };
 }
 
 export default attack;
