@@ -99,15 +99,29 @@ wsServer.on('connection', function(ws) {
             id
           }));
         });
-        response.players.forEach((player) => {
-          lookup[player.id].send(JSON.stringify({
-            type: "turn",
-            data: JSON.stringify({
-              currentPlayer: response.players.find((player) => player.id !== data.indexPlayer).id
-            }),
-            id
-          }));
-        });
+        if (response.win) {
+          response.players.forEach((player) => {
+            lookup[player.id].send(JSON.stringify({
+              type: "finish",
+              data: finish(),
+              id
+            }));
+          });
+          winnersData = updateWinners(id);
+          response.players.forEach((player) => {
+            lookup[player.id].send(JSON.stringify(winnersData));
+          });
+        } else {
+          response.players.forEach((player) => {
+            lookup[player.id].send(JSON.stringify({
+              type: "turn",
+              data: JSON.stringify({
+                currentPlayer: response.players.find((player) => player.id !== data.indexPlayer).id
+              }),
+              id
+            }));
+          });
+        }
         break;
       case 'randomAttack':
         response = randomAttack(data);
@@ -118,7 +132,7 @@ wsServer.on('connection', function(ws) {
             id
           }));
         });
-        if (!win) {
+        if (!response.win) {
           response.players.forEach((player) => {
             lookup[player.id].send(JSON.stringify({
               type: "turn",
