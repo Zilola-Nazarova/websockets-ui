@@ -7,6 +7,11 @@
 2. `npm install`
 
 ## Usage
+
+**Setup**
+
+Rename `.env.sample` to `.env` to have access to environmental variables
+
 **Development**
 
 `npm run start:dev`
